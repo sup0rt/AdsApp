@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsApp", "AdsApp\AdsApp.csproj", "{2B0CC3A8-3080-4985-BA35-AFD377D3E09C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B0CC3A8-3080-4985-BA35-AFD377D3E09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0CC3A8-3080-4985-BA35-AFD377D3E09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0CC3A8-3080-4985-BA35-AFD377D3E09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0CC3A8-3080-4985-BA35-AFD377D3E09C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {912DB59E-D502-405A-B058-B2EB33215E19}
+	EndGlobalSection
+EndGlobal
