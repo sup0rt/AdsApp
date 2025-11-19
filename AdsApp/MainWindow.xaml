@@ -5,14 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdsApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Объявления" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- Одна строка, которая занимает ВСЁ доступное место -->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Frame x:Name="MainFrame" Grid.Row="1" Source="Pages/MainForm.xaml" NavigationUIVisibility="Hidden" />
+        <!-- Frame растягивается на всё окно -->
+        <Frame x:Name="MainFrame" 
+               Grid.Row="0"
+               NavigationUIVisibility="Hidden"
+               BorderThickness="0"/>
     </Grid>
 </Window>

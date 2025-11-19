@@ -11,7 +11,9 @@ namespace AdsApp
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
+    // App.xaml.cs
     public partial class App : Application
     {
+        public static Users CurrentUser { get; set; } // User — твоя сущность из БД
     }
 }
