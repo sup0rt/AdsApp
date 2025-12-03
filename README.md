@@ -1,6 +1,89 @@
 # AdsApp
-диаграммма
+диаграммма в mermaid 
+%% Диаграмма прецедентов — Доска объявлений (без наложений)
+%% Студент №12 Иванов И.И.
+
+graph TB
+    %% Актёры слева
+    A1[Гость]:::actor
+    A2[Зарегистрированный<br/>пользователь]:::actor
+    A3[Система]:::system
+
+    %% Система — большой блок
+    subgraph Система["Система «Доска объявлений»"]
+        direction TB
+        
+        UC1[Просматривать<br/>объявления]:::uc
+        UC2[Искать и фильтровать<br/>объявления]:::uc
+        
+        UC3[Вход в систему]:::uc
+        
+        UC4[Управлять своими<br/>объявлениями<br/>(добавить, редактировать,<br/>удалить, менять статус)]:::uc
+        
+        UC5[Просматривать<br/>завершённые объявления]:::uc
+        
+        UC6[Формировать отчёт<br/>по продажам]:::uc
+        
+        UC7[Создавать резервную<br/>копию БД]:::uc
+        
+        UC8[Указать полученную<br/>сумму]:::include
+    end
+
+    %% Связи с актёрами
+    A1 --> UC1
+    A1 --> UC2
+    
+    A2 --> UC3
+    A2 --> UC4
+    A2 --> UC5
+    A2 --> UC6
+    
+    A3 -.-> UC7
+
+    %% Включения (include)
+    UC4 -->|<<include>>| UC8
+    UC6 -->|<<include>>| UC8
+
+    %% Стили
+    classDef actor fill:#E3F2FD,stroke:#1565C0,stroke-width:3px,color:#000,font-size:14px
+    classDef uc fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#000,font-size:13px,stroke-dasharray: 0
+    classDef include fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,stroke-dasharray: 5 5,color:#006400
+    classDef system fill:#FFEBEE,stroke:#B71C1C,stroke-width:3px,color:#000,font-size:14px
 <img width="1124" height="316" alt="image" src="https://github.com/user-attachments/assets/d2c7697a-5868-4f3e-bd92-e4a12d3db408" />
+в плэнтюмл
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Гость
+actor "Зарегистрированный\nпользователь" as user
+actor "Система" as sys #lightgrey
+
+rectangle "Система «Доска объявлений»" {
+  usecase "Просматривать объявления" as UC1
+  usecase "Искать и фильтровать\nобъявления" as UC2
+  usecase "Войти в систему" as UC3
+  usecase "Управлять своими\nобъявлениями" as UC4
+  usecase "Просматривать завершённые\nобъявления" as UC5
+  usecase "Формировать отчёт\nпо продажам" as UC6
+  usecase "Создавать резервную\nкопию БД" as UC7
+  usecase "Указать полученную сумму" as UC8
+}
+
+Гость --> UC1
+Гость --> UC2
+user --> UC3
+user --> UC4
+user --> UC5
+user --> UC6
+sys ..> UC7 : <<extend>>
+
+UC4 .> UC8 : <<include>>
+UC6 .> UC8 : <<include>>
+
+@enduml
+<img width="639" height="747" alt="image" src="https://github.com/user-attachments/assets/5ec9d674-2873-4c78-9006-08d3b54f3a5b" />
+
 тест кейс
 Тестовый сценарий 1: Добавление и завершение объявления (позитивный)
 
