@@ -98,7 +98,65 @@ namespace AdsApp.Pages
         {
             UpdateAds();
         }
+        private void GoToCompletedAds_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new CompletedAdsPage());
+        }
+        private void BackupDatabase_Click(object sender, RoutedEventArgs e)
+        {
+            string studentNumber = "28";       
+            string lastName = "Шарапов";         
 
+            string fileName = $"{studentNumber}_РКБД_{lastName}.bak";
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string fullPath = System.IO.Path.Combine(desktopPath, fileName);
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    var connection = db.Database.Connection;
+                    connection.Open();
+
+                    string dbName = connection.Database;
+
+                    var cmd = connection.CreateCommand();
+                    cmd.CommandText = $@"
+                BACKUP DATABASE [{dbName}] 
+                TO DISK = '{fullPath}' 
+                WITH INIT, 
+                     NAME = 'Полная резервная копия - {studentNumber}_{lastName}',
+                     DESCRIPTION = 'Создано приложением AdsApp',
+                     COMPRESSION";
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show(
+                    $"Резервная копия успешно создана!\n\n" +
+                    $"Файл сохранён на рабочий стол:\n" +
+                    $"{fileName}\n\n" +
+                    $"Проверьте наличие файла и сдайте его преподавателю.",
+                    "Резервное копирование — УСПЕШНО",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Не удалось создать резервную копию.\n\n" +
+                    $"Ошибка: {ex.Message}\n\n" +
+                    $"Возможные причины:\n" +
+                    $"• SQL Server не запущен\n" +
+                    $"• Нет прав на BACKUP DATABASE\n" +
+                    $"• Используется LocalDB без прав\n\n" +
+                    $"Решение: создайте .bak вручную через SSMS и назовите:\n" +
+                    $"{fileName}",
+                    "ОШИБКА резервного копирования",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
         private void btnClearFilters_Click(object sender, RoutedEventArgs e)
         {
             TBsearch.Text = "";

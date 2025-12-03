@@ -1,79 +1,124 @@
 ﻿<Page x:Class="AdsApp.Pages.MainForm"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:AdsApp.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainForm" Background="White">
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="700" d:DesignWidth="1100"
+      Title="Объявления" Background="#f8f9fa">
 
-    <Grid>
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Заголовок + кнопки -->
+            <RowDefinition Height="Auto"/>
+            <!-- Фильтры -->
             <RowDefinition Height="*"/>
+            <!-- Список объявлений -->
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBox x:Name="TBsearch" Width="100" Height="20" TextChanged="TBsearch_TextChanged" />
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                <Label Content="Категория" />
-                <ComboBox x:Name="cmbCategory" Width="110" DisplayMemberPath="category_desc" SelectedValuePath="category_id" SelectedItem="{Binding Categories}" SelectionChanged="cmbCategory_SelectionChanged" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                <Label Content="Тип" />
-                <ComboBox x:Name="cmbType" Width="80" DisplayMemberPath="type_desc" SelectedValuePath="type_id" SelectedItem="{Binding Types}" SelectionChanged="cmbType_SelectionChanged" />
-            </StackPanel>
+        <!-- === ВЕРХНЯЯ ПАНЕЛЬ: Заголовок + Кнопки === -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,25">
+            <TextBlock Text="Все объявления" 
+                       FontSize="28" FontWeight="Bold" 
+                       HorizontalAlignment="Center" 
+                       Foreground="#2c3e50"/>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                <Label Content="Город" />
-                <ComboBox x:Name="cmbCity" Width="120" DisplayMemberPath="city_desc" SelectedValuePath="city_id" SelectedItem="{Binding Cities}" SelectionChanged="cmbCity_SelectionChanged" />
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,15,0,0">
+                <Button Content="Завершённые объявления →" 
+                        x:Name="btnCompleted" 
+                        Padding="16,10" Margin="15" 
+                        FontSize="14" FontWeight="SemiBold"
+                        Background="#e74c3c" Foreground="White"
+                        Click="GoToCompletedAds_Click"/>
+
+                <Button Content="Резервное копирование БД" 
+                        x:Name="btnBackup" 
+                        Padding="16,10" Margin="15" 
+                        FontSize="14" FontWeight="SemiBold"
+                        Background="#3498db" Foreground="White"
+                        Click="BackupDatabase_Click"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                <Label Content="Статус" />
-                <ComboBox x:Name="cmbStatus" Width="90" DisplayMemberPath="status_desc" SelectedValuePath="status_id" SelectedItem="{Binding Statuses}" SelectionChanged="cmbStatus_SelectionChanged" />
-            </StackPanel>
-            <Button x:Name="btnClearFilters" Content="Очистить" Margin="5" Height="30" Click="btnClearFilters_Click" />
         </StackPanel>
 
-        <ListView x:Name="LWads" Grid.Row="1" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible"  >
+        <!-- === ФИЛЬТРЫ === -->
+        <Border Grid.Row="1" Background="White" 
+                CornerRadius="12" Padding="20" 
+                BorderBrush="#ddd" BorderThickness="1"
+                Margin="0,0,0,20">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center">
+                <TextBox x:Name="TBsearch" Width="180" Height="36" 
+                         Margin="0,0,15,0" FontSize="14"
+                         TextChanged="TBsearch_TextChanged" 
+                         ToolTip="Поиск по заголовку и описанию"/>
+
+                <StackPanel Margin="10,0">
+                    <Label Content="Категория" Padding="5,0"/>
+                    <ComboBox x:Name="cmbCategory" Width="140" Height="32"
+                              DisplayMemberPath="category_desc" 
+                              SelectionChanged="cmbCategory_SelectionChanged"/>
+                </StackPanel>
+
+                <StackPanel Margin="10,0">
+                    <Label Content="Тип" Padding="5,0"/>
+                    <ComboBox x:Name="cmbType" Width="110" Height="32"
+                              DisplayMemberPath="type_desc" 
+                              SelectionChanged="cmbType_SelectionChanged"/>
+                </StackPanel>
+
+                <StackPanel Margin="10,0">
+                    <Label Content="Город" Padding="5,0"/>
+                    <ComboBox x:Name="cmbCity" Width="140" Height="32"
+                              DisplayMemberPath="city_desc" 
+                              SelectionChanged="cmbCity_SelectionChanged"/>
+                </StackPanel>
+
+                <StackPanel Margin="10,0">
+                    <Label Content="Статус" Padding="5,0"/>
+                    <ComboBox x:Name="cmbStatus" Width="120" Height="32"
+                              DisplayMemberPath="status_desc" 
+                              SelectionChanged="cmbStatus_SelectionChanged"/>
+                </StackPanel>
+
+                <Button x:Name="btnClearFilters" Content="Очистить фильтры" 
+                        Width="140" Height="36" Margin="20,15,0,0"
+                        Background="#95a5a6" Foreground="White"
+                        Click="btnClearFilters_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- === СПИСОК ОБЪЯВЛЕНИЙ === -->
+        <ListView x:Name="LWads" Grid.Row="2" 
+                  Background="Transparent"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-
-                    </WrapPanel>
+                    <WrapPanel HorizontalAlignment="Center" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="200"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Image Width="200" Grid.Row="1" Stretch="UniformToFill" HorizontalAlignment="Center">
-                            <Image.Source>
-                                <Binding Path="photo">
-                                    <Binding.TargetNullValue>
-                                        <ImageSource>
-                                            /Photos/default.jpg
-                                        </ImageSource>
-                                    </Binding.TargetNullValue>
-                                </Binding>
-                            </Image.Source>
-                        </Image>
-
-                        <TextBlock VerticalAlignment="Center" TextAlignment="Center" Width="200" Grid.Row="0" TextWrapping="Wrap" Text="{Binding ad_title}" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
-                        <TextBlock VerticalAlignment="Center" TextAlignment="Center" Width="200" Grid.Row="2" HorizontalAlignment="Center" FontSize="18" Text="{Binding Cities.city_desc}"/>
-                        <TextBlock VerticalAlignment="Center" TextAlignment="Center" Width="200" Grid.Row="3" HorizontalAlignment="Center" FontSize="18" Text="{Binding Categories.category_desc}"/>
-                        <TextBlock VerticalAlignment="Center" TextAlignment="Center" Width="200" Grid.Row="4" HorizontalAlignment="Center" FontSize="18" Text="{Binding Types.type_desc}"/>
-                        <TextBlock VerticalAlignment="Center" TextAlignment="Center" Width="200" Grid.Row="5" HorizontalAlignment="Center" FontSize="18" Text="{Binding price}"/>
-                    </Grid>
+                    <Border Background="White" CornerRadius="12" Margin="12" 
+                            Padding="15" Width="280" BorderBrush="#e0e0e0" BorderThickness="1">
+                        <StackPanel>
+                            <Image Source="{Binding photo, TargetNullValue=/Photos/default.jpg}" 
+                                   Height="180" Stretch="UniformToFill" Margin="0,0,0,10"/>
+                            <TextBlock Text="{Binding ad_title}" 
+                                       FontWeight="Bold" FontSize="18" TextWrapping="Wrap" 
+                                       TextAlignment="Center" Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding Cities.city_desc}" Foreground="#7f8c8d" FontSize="13"/>
+                            <TextBlock Text="{Binding Categories.category_desc}" Foreground="#7f8c8d" FontSize="13"/>
+                            <TextBlock Text="{Binding Types.type_desc}" Foreground="#7f8c8d" FontSize="13" Margin="0,0,0,10"/>
+                            <TextBlock Text="{Binding price, StringFormat={}{0} ₽}" 
+                                       FontSize="22" FontWeight="Bold" Foreground="#27ae60" 
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
