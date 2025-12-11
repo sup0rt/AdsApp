@@ -1,5 +1,4 @@
-﻿// Pages/UserAdsPage.xaml.cs
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,11 +23,9 @@ namespace AdsApp.Pages
                 NavigationService.GoBack();
                 return;
             }
-
             var ads = db.Ads
                 .Where(a => a.user_id == App.CurrentUser.user_id)
                 .ToList();
-
             dgAds.ItemsSource = ads;
         }
 
@@ -48,16 +45,13 @@ namespace AdsApp.Pages
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is Button btn) || !(btn.Tag is int adId)) return;
-
             var ad = db.Ads.Find(adId);
             if (ad == null) return;
-
             var result = MessageBox.Show(
                 $"Вы уверены, что хотите удалить объявление «{ad.ad_title}»?\nЭто действие нельзя отменить.",
                 "Подтверждение удаления",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
-
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -83,6 +77,11 @@ namespace AdsApp.Pages
         {
             App.CurrentUser = null;
             NavigationService.Navigate(new LoginPage());
+        }
+
+        private void GoToMyCompleted_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new UserCompletedAdsPage());
         }
 
         // Метод для обновления списка из другой страницы

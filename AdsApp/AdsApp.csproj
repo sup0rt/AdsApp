@@ -106,6 +106,9 @@
     <Compile Include="Pages\UserAdsPage.xaml.cs">
       <DependentUpon>UserAdsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UserCompletedAdsPage.xaml.cs">
+      <DependentUpon>UserCompletedAdsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Statuses.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\UserAdsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UserCompletedAdsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -11,19 +11,35 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
-            <TextBlock Text="Мои объявления" FontSize="24" FontWeight="Bold" Foreground="#37474F" VerticalAlignment="Center"/>
-            <Button Content="Добавить объявление" Margin="30,0,0,0" Padding="20,10"
-                    Background="#FF9E1A" Foreground="White" FontWeight="Bold" Click="AddAd_Click"/>
-            <Button Content="Назад" Margin="16,0" Padding="16,8" Background="#78909C" Foreground="White" Click="Back_Click"/>
-            <Button Content="Выйти" Padding="16,8" Background="#c0392b" Foreground="White" Click="Logout_Click"/>
+        <!-- Верхняя панель с кнопками -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Center">
+            <TextBlock Text="Мои объявления" FontSize="24" FontWeight="Bold" Foreground="#37474F" Margin="0,0,20,0"/>
+
+            <Button Content="Добавить объявление"
+                    Margin="0,0,16,0" Padding="20,10"
+                    Background="#FF9E1A" Foreground="White" FontWeight="Bold"
+                    Click="AddAd_Click"/>
+
+            <Button Content="Мои завершённые"
+                    Margin="0,0,16,0" Padding="20,10"
+                    Background="#27ae60" Foreground="White" FontWeight="Bold"
+                    Click="GoToMyCompleted_Click"/>
+
+            <Button Content="Назад"
+                    Margin="0,0,16,0" Padding="16,8"
+                    Background="#78909C" Foreground="White"
+                    Click="Back_Click"/>
+
+            <Button Content="Выйти"
+                    Padding="16,8" Background="#c0392b" Foreground="White"
+                    Click="Logout_Click"/>
         </StackPanel>
 
+        <!-- Список активных объявлений пользователя -->
         <DataGrid x:Name="dgAds" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True"
                   RowBackground="White" AlternatingRowBackground="#F8F9FA"
-                  GridLinesVisibility="Horizontal" HeadersVisibility="Column"
-                  BorderBrush="#E0E0E0" Margin="0,0,0,16"
-                  MouseDoubleClick="dgAds_MouseDoubleClick">
+                  GridLinesVisibility="Horizontal" BorderBrush="#E0E0E0"
+                  Margin="0,0,0,16" MouseDoubleClick="dgAds_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Заголовок" Binding="{Binding ad_title}" Width="2*"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding price}" Width="*"/>
@@ -42,6 +58,6 @@
         </DataGrid>
 
         <TextBlock Grid.Row="2" Foreground="#78909C" FontStyle="Italic"
-                   Text="{Binding ElementName=dgAds, Path=Items.Count, StringFormat=Всего объявлений: {0}}"/>
+                   Text="{Binding ElementName=dgAds, Path=Items.Count, StringFormat=Всего активных объявлений: {0}}"/>
     </Grid>
 </Page>
