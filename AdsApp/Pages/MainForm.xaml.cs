@@ -166,5 +166,11 @@ namespace AdsApp.Pages
             cmbCity.SelectedItem = null;
             LWads.ItemsSource = Entities.GetContext().Ads.ToList();
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            
+            NavigationService.Navigate(new LoginPage());
+        }
     }
 }

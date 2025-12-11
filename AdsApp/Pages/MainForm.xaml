@@ -21,6 +21,7 @@
                 <Button Content="Резервное копирование БД"
                         Padding="20,10" Background="#37474F" Foreground="White"
                         Click="BackupDatabase_Click"/>
+                <Button Content="Войти" Margin="16,0" Padding="16,8" Background="#78909C" Foreground="White" Click="Back_Click"/>
             </StackPanel>
         </StackPanel>
 

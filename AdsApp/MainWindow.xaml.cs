@@ -24,7 +24,7 @@ namespace AdsApp
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new LoginPage());
+            MainFrame.Navigate(new MainForm());
         }
     }
 }
